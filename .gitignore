@@ -1,6 +1,5 @@
 /*
 !/.*
-#!.*/*
 .*hist*
 
 .FBReader/
@@ -11,6 +10,7 @@
 .adobe/
 .aldorc
 .asoundrc
+.bash*
 .cache/
 .claws-mail/
 .cmus
@@ -41,7 +41,7 @@
 .ssh/
 .subversion/
 .th08/
-.tkabber/
+.tkabber/*
 !.tkabber/config.tcl
 !.tkabber/dark1.xrdb
 .tuxguitar-1.2/
