@@ -161,8 +161,11 @@ bindsym $mod+Control+f mode "resize"
 bindsym $mod+Shift+z focus output LVDS1
 bindsym $mod+Shift+x focus output VGA1
 
-assign [class="Firefox"] 3
-assign [class="Tkabber"] 4
+assign [class="Firefox"]	w
+assign [class="Nightly"]	w
+assign [class="Tkabber"]	q
+assign [class="Claws"]		e
+assign [class="Skype"]		e
 
 workspace "1" output LVDS1
 workspace "4" output LVDS1
