@@ -1,0 +1,37 @@
+#cache=8192
+#menu=yes
+msgcolor=yes
+
+#vo=vaapi
+vo=xv
+ao=alsa
+# Video decoding and output
+lavdopts=fast=1
+#demuxer=mov
+
+#vo=gl:yuv=2:rectangle=22:ati-hack
+#dr=yes 
+#noslices=yes
+#vsync=yes
+#autosync=30
+#mc=1
+fixed-vo=yes
+#monitoraspect=16:10
+
+# Audio filtering and output
+ac=mad,
+#af=channels=2:2:0:1:1:0
+#af=equalizer=2:3:3:2:0:0:0:0:1:1
+
+# Subtitles options
+#ass=yes
+subcp=enca:ru:utf8
+fontconfig=yes
+#ubfont-outline=8
+ass-border-color=00000020
+ass-color=FFFFFF20
+#ass-force-style=FontName=Arial,50
+#ss-hinting=2
+#ass-font-scale=0.8
+
+#heartbeat-cmd="xscreensaver-command -deactivate > /dev/null"

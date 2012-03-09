@@ -1,0 +1,2 @@
+hardstatus alwayslastline "< %-w%{WB} %n %t %{-}%+w >"
+encoding KOI8-R
