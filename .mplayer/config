@@ -2,8 +2,7 @@
 #menu=yes
 msgcolor=yes
 
-#vo=vaapi
-vo=xv
+vo=vaapi
 ao=alsa
 # Video decoding and output
 lavdopts=fast=1
