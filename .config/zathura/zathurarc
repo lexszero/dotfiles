@@ -1,0 +1,10 @@
+set adjust_open width
+set browser "firefox %s"
+set save_position true
+
+set recolor true
+set recolor-darkcolor #90ee90
+set recolor-lightcolor #000000
+set recolor-keephue true
+
+map <C-i> set recolor
