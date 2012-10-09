@@ -4,7 +4,8 @@ include "/usr/share/X11/locale/en_US.UTF-8/Compose"
 <Multi_key>	<Cyrillic_HARDSIGN>	<Cyrillic_YERU>	:	"Ꙑ"	UA650
 <Multi_key> <q> <w> : "̈" U0308 # COMBINING RIGHT ARROW ABOVE, знак вектора
 <Multi_key> <r> <t> <l> : U202E # RIGHT-TO-LEFT OVERRIDE
-<Multi_key> <b> <t> <c> : "฿" # Bitcoin symbol
+<Multi_key> <b> <t> <c> : "฿" # Bitcoin symbols
+<Multi_key> <R> <R> <R> : "Ｒ" # Nice R character
 
 <Multi_key> <period> <space> : "…" U2026 # HORIZONTAL ELLIPSIS, многоточие
 <Multi_key> <apostrophe> <apostrophe> : "́" U0301 # ударение
