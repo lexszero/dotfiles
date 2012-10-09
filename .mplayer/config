@@ -1,5 +1,6 @@
 #cache=8192
 #menu=yes
+prefer-ipv4=yes
 msgcolor=yes
 
 vo=vaapi
