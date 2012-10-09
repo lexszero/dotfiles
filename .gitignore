@@ -15,7 +15,9 @@
 .cache/
 .claws-mail/
 .cmus
-.config/
+.config/*
+!.config/zathura/
+!.config/zathura/zathurarc
 .dbus/
 .eagle/
 .fontconfig/
