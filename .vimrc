@@ -1,6 +1,9 @@
+call pathogen#infect()
+
 " global vim stuff
+set t_Co=256
+"let g:colorschemedegrade_ignore=""
 colorscheme mycolors
-let g:colorschemedegrade_ignore=""
 set nocompatible
 set mouse=a
 set showcmd
@@ -23,6 +26,10 @@ inoremap jj <ESC>
 
 filetype on
 filetype plugin on
+
+" buffers history
+nmap <leader>h :BufSurfBack<CR>
+nmap <leader>l :BufSurfForward<CR>
 
 " tabulation prefs
 set tabstop=4
@@ -55,10 +62,10 @@ if has("autocmd")
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
 
-nmap <C-H> 5h
-nmap <C-J> 5j
-nmap <C-K> 5k
-nmap <C-L> 5l
+nmap <C-H> <C-W>h
+nmap <C-J> <C-W>j
+nmap <C-K> <C-W>k
+nmap <C-L> <C-W>l
 
 nmap <F2> :Bufferlist<CR>
 imap <F2> <Esc>:Bufferlist<CR>
@@ -81,3 +88,5 @@ map <Esc>9 9gt
 
 " source various stuff
 source ~/.vim/binary.vim
+source ~/.vim/header_guard.vim
+

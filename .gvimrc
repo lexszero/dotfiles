@@ -1,4 +1,4 @@
-set guifont=Terminus\ (TTF)\ 12
+set guifont=terminus\ 11
 "set guifont=keyrus
 
 set guioptions-=m

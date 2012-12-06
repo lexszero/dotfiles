@@ -7,14 +7,12 @@ setlocal list
 setlocal listchars=tab:·\ ,trail:·,eol:↵
 setlocal wildoptions=tagfile
 
-" taglist plugin mappings
-nmap <leader>t :TlistToggle<CR>
-imap <leader>t <Esc>:TlistToggle<CR>
-vmap <leader>t <Esc>:TlistToggle<CR>
+nmap <leader>t :TrinityToggleTagList<CR>
+nmap <leader>s :TrinityToggleSourceExplorer<CR>
+nmap <leader>n :TrinityToggleNERDTree<CR>
+nmap <leader>i :TrinityToggleAll<CR>
 
-nmap <leader>n :NERDTreeToggle<CR>
-imap <leader>n <Esc>:NERDTreeToggle<CR>
-vmap <leader>n <Esc>:NERDTreeToggle<CR>
+nmap <leader>a :Ack<Space>
 
-au BufWinLeave * mkview
-au BufWinLeave * silent loadview
+"au BufWinLeave * mkview
+"au BufWinLeave * silent loadview
