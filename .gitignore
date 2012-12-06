@@ -1,7 +1,8 @@
 /*
 !/.*
 .*hist*
-
+*.swp
+*.un~
 .FBReader/
 .Skype/
 .VirtualBox/
@@ -18,6 +19,7 @@
 .config/*
 !.config/zathura/
 !.config/zathura/zathurarc
+!.config/ranger/
 .dbus/
 .eagle/
 .fontconfig/

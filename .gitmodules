@@ -1,0 +1,36 @@
+[submodule ".vim/bundle/buffet"]
+	path = .vim/bundle/buffet
+	url = git://github.com/sandeepcr529/Buffet.vim.git
+[submodule ".vim/bundle/bufsurf"]
+	path = .vim/bundle/bufsurf
+	url = git://github.com/ton/vim-bufsurf.git
+[submodule ".vim/bundle/clang_complete"]
+	path = .vim/bundle/clang_complete
+	url = git://github.com/Rip-Rip/clang_complete.git
+[submodule ".vim/bundle/csapprox"]
+	path = .vim/bundle/csapprox
+	url = git://github.com/godlygeek/csapprox.git
+[submodule ".vim/bundle/nerdcommenter"]
+	path = .vim/bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule ".vim/bundle/trinity"]
+	path = .vim/bundle/trinity
+	url = git://github.com/vim-scripts/Trinity.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule ".vim/bundle/taglist"]
+	path = .vim/bundle/taglist
+	url = git://github.com/vim-scripts/taglist.vim.git
+[submodule ".vim/bundle/srcexpl"]
+	path = .vim/bundle/srcexpl
+	url = git://github.com/wesleyche/SrcExpl.git
+[submodule "/home/lexs/.vim/bundle/fugitive"]
+	path = /home/lexs/.vim/bundle/fugitive
+	url = git://github.com/scrooloose/vim-fugitive.git
+[submodule ".vim/bundle/localvimrc"]
+	path = .vim/bundle/localvimrc
+	url = https://github.com/embear/vim-localvimrc
+[submodule ".vim/bundle/ack"]
+	path = .vim/bundle/ack
+	url = git://github.com/mileszs/ack.vim.git
