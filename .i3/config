@@ -67,9 +67,7 @@ bindsym $mod+v split v
 bindsym $mod+x fullscreen
 
 # change container layout (stacked, tabbed, default)
-bindsym $mod+y layout stacking
-bindsym $mod+u layout tabbed
-bindsym $mod+i layout default
+bindsym $mod+y layout toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -166,6 +164,26 @@ assign [class="Nightly"]	w
 assign [class="Tkabber"]	q
 assign [class="Claws"]		e
 assign [class="Skype"]		e
+
+# General-purpose scratchpad for everything
+bindsym $mod+Shift+u move scratchpad
+bindsym $mod+u scratchpad show
+
+for_window [title="_i3_scratch1"] move scratchpad; border normal
+bindsym $mod+i [title="_i3_scratch1"] scratchpad show
+
+for_window [title="_i3_scratch2"] move scratchpad
+bindsym $mod+o [title="_i3_scratch2"] scratchpad show
+
+for_window [title="_i3_scratch3"] move scratchpad
+bindsym $mod+p [title="_i3_scratch3"] scratchpad show
+
+# Put three console windows to appropriate scratchpads
+# Kludges with $TERM forbids zsh to change window title (see zshrc)
+exec urxvtc -tn "__rxvt-unicode-256color" -title "_i3_scratch1"
+exec urxvtc -tn "__rxvt-unicode-256color" -title "_i3_scratch2"
+exec gvim -c 'let &titlestring="_i3_scratch3"'
+#exec urxvtc -tn "__rxvt-unicode-256color" -title "_i3_scratch3"
 
 #workspace "1" output LVDS1
 #workspace "4" output LVDS1
