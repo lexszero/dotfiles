@@ -12,7 +12,7 @@ let g:SrcExpl_isUpdateTags = 0
 " --- OmniCppComplete ---
 " auto close options when exiting insert mode
 "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"set completeopt=menu,preview
+set completeopt=menu,preview
 "call omni#cpp#complete#Init()
 "let OmniCpp_ShowPrototypeInAbbr = 1
 "let OmniCpp_SelectFirstItem = 1
@@ -25,7 +25,7 @@ let g:SrcExpl_isUpdateTags = 0
 
 let g:clang_auto_select = 1
 let g:clang_complete_auto = 1
-let g:clang_complete_copen = 0
+let g:clang_complete_copen = 1
 let g:clang_snippets = 1
 let g:clang_snippets_engine = 'clang_complete'
 let g:clang_periodic_quickfix = 0
@@ -33,9 +33,12 @@ let g:clang_trailing_placeholder = 0
 let g:clang_close_preview = 1
 let g:clang_user_options = "-std=c99 -Wall -Wextra"
 let g:clang_auto_user_options = "local, .clang_complete, clang"
-"let g:clang_use_library = 1
+let g:clang_library_path = '/usr/lib64/llvm'
+let g:clang_use_library = 1
 let g:clang_complete_macros = 1
 let g:clang_complete_patterns = 1
+
+"set complete=
 
 source ~/.vim/cscope.vim
 

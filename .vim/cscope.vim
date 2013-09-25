@@ -5,7 +5,7 @@ if has("cscope")
 	set cst
 	set csre
 	set csverb
-	map <F12> <C-R>=system("cscope -f .cscope -b -R -k " . b:local_includes)<CR><CR>
+	map <F12> :<C-R>=system("cscope -f .cscope -b -R -k ")<CR><CR>
 	if ! cscope_connection(4, ".cscope")
 		if filereadable(".cscope")
 			cs add .cscope

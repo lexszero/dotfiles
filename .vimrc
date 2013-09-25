@@ -1,8 +1,9 @@
+"let g:pathogen_disabled=["csapprox"]
 call pathogen#infect()
 
 " global vim stuff
 set t_Co=256
-"let g:colorschemedegrade_ignore=""
+let g:colorschemedegrade_ignore=""
 colorscheme mycolors
 set nocompatible
 set mouse=a
@@ -16,7 +17,8 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-
+setlocal list
+setlocal listchars=tab:·\ ,trail:·,eol:↵
 " no more finger-bending to reach Esc!
 inoremap jj <ESC>
 "noremap j h
@@ -30,6 +32,9 @@ filetype plugin on
 " buffers history
 nmap <leader>h :BufSurfBack<CR>
 nmap <leader>l :BufSurfForward<CR>
+
+" Ack plugin
+nmap <leader>a :Ack<Space>
 
 " tabulation prefs
 set tabstop=4
@@ -86,7 +91,15 @@ map <Esc>7 7gt
 map <Esc>8 8gt
 map <Esc>9 9gt
 
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+
 " source various stuff
 source ~/.vim/binary.vim
 source ~/.vim/header_guard.vim
+source ~/.vim/ranger.vim
 

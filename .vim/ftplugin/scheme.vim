@@ -1,1 +1,1 @@
-source ~/.vim/develop.vim
+../develop.vim

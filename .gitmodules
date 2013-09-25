@@ -25,8 +25,8 @@
 [submodule ".vim/bundle/srcexpl"]
 	path = .vim/bundle/srcexpl
 	url = git://github.com/wesleyche/SrcExpl.git
-[submodule "/home/lexs/.vim/bundle/fugitive"]
-	path = /home/lexs/.vim/bundle/fugitive
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
 	url = git://github.com/scrooloose/vim-fugitive.git
 [submodule ".vim/bundle/localvimrc"]
 	path = .vim/bundle/localvimrc
@@ -34,3 +34,9 @@
 [submodule ".vim/bundle/ack"]
 	path = .vim/bundle/ack
 	url = git://github.com/mileszs/ack.vim.git
+[submodule ".vim/bundle/CamelCaseMotion"]
+	path = .vim/bundle/CamelCaseMotion
+	url = git://github.com/bkad/CamelCaseMotion.git
+[submodule ".vim/bundle/ledger"]
+	path = .vim/bundle/ledger
+	url = git@github.com:ledger/vim-ledger.git
