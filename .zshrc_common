@@ -1,0 +1,115 @@
+eval `dircolors /etc/DIR_COLORS`
+cut_term=${TERM#__}
+[[ "$cut_term" == rxvt-unicode-256color && "$cut_term" == "$TERM" ]] && {
+	precmd () {
+		print -Pn "\e]0;%n@%M: %~\a"
+	}
+} || {
+	export TERM=$cut_term
+}
+unset cut_term
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' completer _complete _ignored _match _correct _approximate _prefix
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' format '%d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' '' '' '+'
+zstyle ':completion:*' max-errors 1
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' original false
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+#zstyle ':completion:*' use-compctl true
+zstyle :compinstall filename '/home/lexs/.zshrc'
+
+autoload -Uz compinit
+compinit
+
+# bash completions
+bash_source() {
+	alias shopt=':'
+	alias _expand=_bash_expand
+	alias _complete=_bash_comp
+	emulate -L sh
+	setopt kshglob noshglob braceexpand
+
+	source "$@"
+}
+
+have() {
+  unset have
+  (( ${+commands[$1]} )) && have=yes
+}
+
+vwhich() {
+	local thing=$1
+	vim `which $thing`
+}
+
+bash_source /etc/profile.d/bash-completion.sh
+autoload bashcompinit
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd extendedglob notify hist_ignore_dups hist_find_no_dups
+unsetopt beep nomatch
+bindkey -v
+
+export ZLSCOLORS="${LS_COLORS}"
+autoload -U colors
+colors
+alias -g ls="ls --color=auto"
+alias -g grep='grep --colour=auto'
+
+#lias -g l='ls'
+alias -g ll='ls -la'
+alias -g tf='tail -F '
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g C='| wc -l'
+alias -g DN='/dev/null'
+alias -g G='| egrep'
+alias -g H='| head'
+alias -g LL='2>&1 | $PAGER'
+alias -g L='| $PAGER'
+alias -g NE='2>/dev/null'
+alias -g NUL='2>&1 > /dev/null'
+alias -g T='| tail'
+
+if [ $EUID == 0 ]; then
+	PS1="%B%F{red}%m %F{blue}%~ %F{default}>%b "
+else
+	PS1="%B%F{magenta}%n%F{default}@%F{green}%m %F{blue}%~ %F{default}>%b "
+fi
+PS2="%B%_ %b "
+
+setopt prompt_subst
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+function zle-change-first-word {
+	zle beginning-of-line-hist
+	zle delete-word
+	zle vi-insert
+}
+zle -N zle-change-first-word
+bindkey -v \\C-f zle-change-first-word
+
+bindkey \\C-g clear-screen
+bindkey -a \\C-g clear-screen
+
+bindkey -v \\C-r history-incremental-pattern-search-backward
+bindkey -v \\C-p history-beginning-search-backward
+bindkey -v \\C-n history-beginning-search-forward
+bindkey -v \\C-h backward-word
+bindkey -v \\C-l forward-word
