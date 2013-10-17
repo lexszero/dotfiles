@@ -11,15 +11,16 @@
 
 workspace_auto_back_and_forth yes
 focus_follows_mouse no
-new_window 1pixel
+new_window pixel
+new_float normal
+hide_edge_borders both
 
 set $mod Mod4
 
-#bindsym $mod+b border 1pixel
-
 # font for window titles. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font -*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-*
+#font -*-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-*
+font pango:Terminus 12px
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -32,6 +33,18 @@ bindsym $mod+Shift+C kill
 
 # start dmenu (a program launcher)
 bindsym $mod+F1 exec /usr/bin/dmenu_run
+
+# sound volume controls
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 2dB+
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 2dB-
+bindsym XF86AudioMute exec amixer -q sset Master toggle
+
+# screen locker
+bindsym XF86ScreenSaver exec i3lock -d -c 000000
+
+# cmus controls
+bindsym $mod+Control+x exec cmus-remote -u
+bindsym $mod+Control+c exec cmus-remote -c
 
 # change focus
 bindsym $mod+h focus left
@@ -68,6 +81,7 @@ bindsym $mod+x fullscreen
 
 # change container layout (stacked, tabbed, default)
 bindsym $mod+y layout toggle
+bindsym $mod+Shift+y border toggle
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -79,7 +93,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+minus focus parent
 
 # focus the child container
-#bindcode $mod+equal focus child
+bindcode $mod+equal focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -169,13 +183,9 @@ assign [class="Skype"]		e
 bindsym $mod+Shift+u move scratchpad
 bindsym $mod+u scratchpad show
 
-for_window [title="_i3_scratch1"] move scratchpad; border normal
+for_window [title="_i3_scratch"] move scratchpad; border normal
 bindsym $mod+i [title="_i3_scratch1"] scratchpad show
-
-for_window [title="_i3_scratch2"] move scratchpad
 bindsym $mod+o [title="_i3_scratch2"] scratchpad show
-
-for_window [title="_i3_scratch3"] move scratchpad
 bindsym $mod+p [title="_i3_scratch3"] scratchpad show
 
 # Put three console windows to appropriate scratchpads
@@ -194,8 +204,3 @@ exec gvim -c 'let &titlestring="_i3_scratch3"'
 bar {
 	status_command i3status
 }
-
-#bindsym XF86ScreenSaver exec lock_screen
-#bindsym XF86AudioLowerVolume amixer sset Master 1dB-
-#bindsym XF86AudioRaiseVolume amixer sset Master 1dB+
-#exec i3status | i3-wsbar -c "dzen2 -e '' -x %x -dock -fn 'Monospace:size=10'"
