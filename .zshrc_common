@@ -89,6 +89,17 @@ fi
 PS2="%B%_ %b "
 
 setopt prompt_subst
+
+function rcd () {
+	tempfile='/tmp/chosendir'
+	ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+	test -f "$tempfile" &&
+	if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+		cd -- "$(cat "$tempfile")"
+	fi
+	rm -f -- "$tempfile"
+}
+
 function zle-line-init zle-keymap-select {
     RPS1="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
     RPS2=$RPS1
