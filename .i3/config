@@ -35,9 +35,9 @@ bindsym $mod+Shift+C kill
 bindsym $mod+F1 exec /usr/bin/dmenu_run
 
 # sound volume controls
-bindsym XF86AudioRaiseVolume exec amixer -q sset Master 2dB+
-bindsym XF86AudioLowerVolume exec amixer -q sset Master 2dB-
-bindsym XF86AudioMute exec amixer -q sset Master toggle
+bindsym XF86AudioRaiseVolume exec /home/lexs/bin/snd-volume set 2dB+
+bindsym XF86AudioLowerVolume exec /home/lexs/bin/snd-volume set 2dB-
+bindsym XF86AudioMute exec /home/lexs/bin/snd-volume set toggle
 
 # screen locker
 bindsym XF86ScreenSaver exec i3lock -d -c 000000
@@ -193,6 +193,7 @@ bindsym $mod+p [title="_i3_scratch3"] scratchpad show
 exec urxvtc -tn "__rxvt-unicode-256color" -title "_i3_scratch1"
 exec urxvtc -tn "__rxvt-unicode-256color" -title "_i3_scratch2"
 exec gvim -c 'let &titlestring="_i3_scratch3"'
+
 #exec urxvtc -tn "__rxvt-unicode-256color" -title "_i3_scratch3"
 
 #workspace "1" output LVDS1
