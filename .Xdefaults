@@ -7,11 +7,9 @@ Rxvt*scrollTtyKeypress: True
 Rxvt*scrollBar: false
 Rxvt*preeditType: OnTheSpot
 Rxvt*inputMethod: uim
-#Rxvt*font: xft:DejaVu Sans Mono:size=11
-#Rxvt*font: xft:Droid Sans Mono:size=10
 Rxvt*perl-ext: default,matcher,selection,selection-autotransform
 Rxvt*selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vim +$2 \\Q$1\\E\\x0d/
-Rxvt*urlLauncher: firefox-nightly
+Rxvt*urlLauncher: firefox-bin
 
 Tkabber*font: DejaVuSans 12
 
@@ -32,3 +30,5 @@ Rxvt*color13:			#EFA0BF
 Rxvt*color14:			#A0FFFF
 Rxvt*color15:			white
 
+XTerm*background: black
+XTerm*foreground: white
