@@ -82,9 +82,9 @@ alias -g NUL='2>&1 > /dev/null'
 alias -g T='| tail'
 
 if [ $EUID == 0 ]; then
-	PS1="%B%F{red}%m %F{blue}%~ %F{default}>%b "
+	PS1="%B%F{${hostname_color:-red}}%m %F{blue}%~ %F{default}>%b "
 else
-	PS1="%B%F{magenta}%n%F{default}@%F{green}%m %F{blue}%~ %F{default}>%b "
+	PS1="%B%F{magenta}%n%F{default}@%F{${hostname_color:-green}}%m %F{blue}%~ %F{default}>%b "
 fi
 PS2="%B%_ %b "
 
