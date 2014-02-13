@@ -81,15 +81,6 @@ alias -g NE='2>/dev/null'
 alias -g NUL='2>&1 > /dev/null'
 alias -g T='| tail'
 
-if [ $EUID == 0 ]; then
-	PS1="%B%F{${hostname_color:-red}}%m %F{blue}%~ %F{default}>%b "
-else
-	PS1="%B%F{magenta}%n%F{default}@%F{${hostname_color:-green}}%m %F{blue}%~ %F{default}>%b "
-fi
-PS2="%B%_ %b "
-
-setopt prompt_subst
-
 function rcd () {
 	tempfile='/tmp/chosendir'
 	ranger --choosedir="$tempfile" "${@:-$(pwd)}"
@@ -100,9 +91,43 @@ function rcd () {
 	rm -f -- "$tempfile"
 }
 
+source /home/lexs/.zsh/git-prompt/zshrc.sh
+function git_status {
+	[ "$PWD" == "$HOME" ] && return
+	git_super_status
+}
+
+setopt prompt_subst
+
+PS_PATH='%F{blue}%3(c.…%2c.%c)'
+PS_HOST=`hostname | sed -r 's#(.)[^.]*([^.]).*#\1…\2#'`
+if [ $EUID == 0 ]; then
+	PS_USERHOST="%F{${hostname_color:-red}}$PS_HOST"
+	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{default}>%b "
+else
+	PS_USERHOST="%F{magenta}${USER:0:1}…%F{default}@%F{${hostname_color:-green}}$PS_HOST"
+	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{yellow}\$(git_status)%F{default}>%b "
+fi
+PS2="%B%_ %b "
+
+PS_VIMODE="[I]"
+function set-ps1 {
+	PS1="${PS_VIMODE}${PS_MAIN}"
+}
+set-ps1
+
 function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
-    RPS2=$RPS1
+	case $KEYMAP in
+	vicmd)
+		PS_VIMODE="[%F{yellow}N%F{default}]"
+		;;
+	main|viins)
+		PS_VIMODE="[%F{green}I%F{default}]"
+		;;
+	*)
+		PS_VIMODE="[ ]"
+	esac
+	set-ps1
     zle reset-prompt
 }
 zle -N zle-line-init
