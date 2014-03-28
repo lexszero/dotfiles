@@ -18,7 +18,7 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 setlocal list
-setlocal listchars=tab:·\ ,trail:·,eol:↵
+setlocal listchars=tab:·\ ,trail:·
 " no more finger-bending to reach Esc!
 inoremap jj <ESC>
 "noremap j h
