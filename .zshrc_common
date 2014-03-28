@@ -105,7 +105,7 @@ if [ $EUID == 0 ]; then
 	PS_USERHOST="%F{${hostname_color:-red}}$PS_HOST"
 	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{default}>%b "
 else
-	PS_USERHOST="%F{magenta}${USER:0:1}…%F{default}@%F{${hostname_color:-green}}$PS_HOST"
+	PS_USERHOST="%F{${username_color:-magenta}}${USER:0:1}…%F{default}@%F{${hostname_color:-green}}$PS_HOST"
 	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{yellow}\$(git_status)%F{default}>%b "
 fi
 PS2="%B%_ %b "
