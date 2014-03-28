@@ -3,3 +3,4 @@
 	email = lexszero@gmail.com
 [color]
 	ui = true
+	diff = never
