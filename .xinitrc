@@ -8,7 +8,6 @@ export AWT_TOOLKIT=MToolkit
 
 urxvtd -q -o -f
 eval $(gpg-agent --daemon)
-xbindkeys
 i3 
 #while :; do
 #	i3 &
