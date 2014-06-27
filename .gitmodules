@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/localvimrc"]
 	path = .vim/bundle/localvimrc
 	url = https://github.com/embear/vim-localvimrc
-[submodule ".vim/bundle/ack"]
-	path = .vim/bundle/ack
-	url = git://github.com/mileszs/ack.vim.git
 [submodule ".vim/bundle/CamelCaseMotion"]
 	path = .vim/bundle/CamelCaseMotion
 	url = git://github.com/bkad/CamelCaseMotion.git
@@ -46,3 +43,6 @@
 [submodule ".zsh/git-prompt"]
 	path = .zsh/git-prompt
 	url = https://github.com/olivierverdier/zsh-git-prompt.git
+[submodule ".vim/bundle/ag"]
+	path = .vim/bundle/ag
+	url = https://github.com/rking/ag.vim
