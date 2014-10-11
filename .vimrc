@@ -53,8 +53,8 @@ nmap <F3> :nohlsearch<CR>
 imap <F3> <Esc>:nohlsearch<CR>
 vmap <F3> <Esc>:nohlsearch<CR>
 " disable shitty vim regex syntax
-nnoremap / /\v
-vnoremap / /\v
+"nnoremap / /\v
+"vnoremap / /\v
 set ignorecase
 set smartcase
 set gdefault

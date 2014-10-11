@@ -32,8 +32,8 @@ let g:clang_periodic_quickfix = 0
 let g:clang_trailing_placeholder = 0
 let g:clang_close_preview = 1
 let g:clang_user_options = "-std=c99 -Wall -Wextra"
-let g:clang_auto_user_options = "local, .clang_complete, clang"
-let g:clang_library_path = '/usr/lib64/llvm'
+"let g:clang_auto_user_options = "local, .clang_complete, clang"
+let g:clang_library_path = '/usr/lib64/'
 let g:clang_use_library = 1
 let g:clang_complete_macros = 1
 let g:clang_complete_patterns = 1

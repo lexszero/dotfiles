@@ -11,6 +11,12 @@ if has("cscope")
 			cs add .cscope
 		endif
 	endif
+	if ! cscope_connection(4, "cscope.out")
+		if filereadable("cscope.out")
+			cs add cscope.out
+		endif
+	endif
+
 
 	" To do the first type of search, hit 'CTRL-\', followed by one of the
 	" cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
