@@ -24,7 +24,6 @@ zstyle ':completion:*' menu select=2
 zstyle ':completion:*' original false
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 #zstyle ':completion:*' use-compctl true
-zstyle :compinstall filename '/home/lexs/.zshrc'
 
 autoload -Uz compinit
 compinit
