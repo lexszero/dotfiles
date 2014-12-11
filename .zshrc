@@ -5,6 +5,7 @@ function git_status {
 	[ "$PWD" == "$HOME" ] && return
 	git_super_status
 }
+PS_MAIN="%B$PS_USERHOST $PS_PATH %F{yellow}\$(git_status)%F{default}>%b "
 
 PATH=~/bin:/usr/sbin:/usr/local/sbin:$PATH
 
