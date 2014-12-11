@@ -1,5 +1,11 @@
 source ~/.zshrc_common
 
+source /home/lexs/.zsh/git-prompt/zshrc.sh
+function git_status {
+	[ "$PWD" == "$HOME" ] && return
+	git_super_status
+}
+
 PATH=~/bin:/usr/sbin:/usr/local/sbin:$PATH
 
 # CodeSourcery toolchain
