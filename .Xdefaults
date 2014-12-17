@@ -1,6 +1,6 @@
 Rxvt*background: black
 Rxvt*foreground: white
-Rxvt*font: xft:Terminus:size=12, xft:Arial Unicode MS:size=10
+Rxvt*font: xft:Terminus:size=12:lang=ru
 Rxvt*scrollWithBuffer: False
 Rxvt*scrollTtyOutput: False
 Rxvt*scrollTtyKeypress: True

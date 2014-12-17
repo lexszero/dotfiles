@@ -4,3 +4,5 @@
 [color]
 	ui = true
 	diff = never
+[push]
+	default = simple

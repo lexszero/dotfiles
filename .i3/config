@@ -34,13 +34,16 @@ bindsym $mod+Shift+C kill
 # start dmenu (a program launcher)
 bindsym $mod+F1 exec /usr/bin/dmenu_run
 
+# start terminal with ranger
+bindsym $mod+F2 exec urxvtc -e ranger
+
 # sound volume controls
-bindsym XF86AudioRaiseVolume exec /home/lexs/bin/snd-volume set 2dB+
-bindsym XF86AudioLowerVolume exec /home/lexs/bin/snd-volume set 2dB-
-bindsym XF86AudioMute exec /home/lexs/bin/snd-volume set toggle
+bindsym XF86AudioRaiseVolume exec snd-volume set 2dB+
+bindsym XF86AudioLowerVolume exec snd-volume set 2dB-
+bindsym XF86AudioMute exec snd-volume set toggle
 
 # screen locker
-bindsym XF86ScreenSaver exec i3lock -d -c 000000
+#bindsym XF86ScreenSaver exec xautolock -locknow
 
 # cmus controls
 bindsym $mod+Control+x exec cmus-remote -u
