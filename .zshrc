@@ -1,4 +1,4 @@
-source ~/.zshrc_common
+source /etc/zsh/zshrc_common
 
 source /home/lexs/.zsh/git-prompt/zshrc.sh
 function git_status {

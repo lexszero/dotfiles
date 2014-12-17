@@ -49,7 +49,7 @@ vwhich() {
 	vim `which $thing`
 }
 
-bash_source /etc/profile.d/bash-completion.sh
+bash_source /etc/bash/bashrc.d/bash_completion.sh
 autoload bashcompinit
 
 HISTFILE=~/.histfile
