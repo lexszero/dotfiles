@@ -29,24 +29,34 @@ _project_pwd() {
 	fi
 }
 
+_project_source_init() {
+	[ -e ./${_proj_init} ] && {
+		echo "Sourcing ${_proj_init} from \${_proj_root}${PWD##${_proj_root}}"
+			. ./${_proj_init}
+	}
+}
+
 init_project() {
-	proj="${_proj_root}/${1}"
+	projname="${1%%/}"
+	proj="${_proj_root}/${projname}"
 	cd "${proj}" || {
 		echo "No such project"
 		return 1
 	}
 	hash -d Δ=${proj}
-	PS_MAIN="%B${1} \$(_project_pwd) %F{yellow}\$(git_status)%F{default}>%b "
+	PS_MAIN="%B${projname##*/} \$(_project_pwd) %F{yellow}\$(git_status)%F{default}>%b "
 	{
 		cd ${_proj_root}
 		while [[ "${PWD}" != "${proj}" ]]; do
+			_project_source_init
 			cd ${${${proj##${PWD}}#/}%%/*}
-			[ -e ./${_proj_init} ] && {
-				echo "Sourcing ${PWD##${_proj_root}}/${_proj_init}"
-				. ./${_proj_init}
-			}
 		done
+		_project_source_init
 	}
+}
+
+prcd() {
+	cd "${proj}/$1"
 }
 
 # Go stuff
