@@ -1,8 +1,12 @@
 /*
+!/projects
+/projects/*
+!/projects/.init_env
 !/.*
 .*hist*
-*.swp
+*.sw?
 *.un~
+.*~
 .FBReader/
 .Skype/
 .VirtualBox/
