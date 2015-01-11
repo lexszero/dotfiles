@@ -49,3 +49,6 @@
 [submodule "/home/lexs/.vim/bundle/vim-go-extra"]
 	path = /home/lexs/.vim/bundle/vim-go-extra
 	url = https://github.com/vim-jp/vim-go-extra.git
+[submodule ".vim/bundle/vim-gnupg"]
+	path = .vim/bundle/vim-gnupg
+	url = https://github.com/jamessan/vim-gnupg.git
