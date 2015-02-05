@@ -34,7 +34,7 @@ nmap <leader>h :BufSurfBack<CR>
 nmap <leader>l :BufSurfForward<CR>
 
 " Ack plugin
-nmap <leader>a :Ack<Space>
+nmap <leader>a :Ag<Space>
 
 " tabulation prefs
 set tabstop=4
@@ -72,6 +72,9 @@ nmap <C-H> <C-W>h
 nmap <C-J> <C-W>j
 nmap <C-K> <C-W>k
 nmap <C-L> <C-W>l
+
+nmap <C-]> :cn<CR>
+nmap <C-[> :cp<CR>
 
 nmap <F2> :Bufferlist<CR>
 imap <F2> <Esc>:Bufferlist<CR>
