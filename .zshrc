@@ -1,6 +1,7 @@
 source /etc/zsh/zshrc_common
 
-source /home/lexs/.zsh/git-prompt/zshrc.sh
+autoload -U add-zsh-hook
+
 function git_status {
 	gitroot=`git rev-parse --show-toplevel 2>/dev/null`
 	if [[ "$?" != "0" || "${gitroot}" == "$HOME" ]]; then
@@ -9,7 +10,22 @@ function git_status {
 		git_super_status
 	fi
 }
-PS_MAIN="%B$PS_USERHOST $PS_PATH %F{yellow}\$(git_status)%F{default}>%b "
+
+git-prompt-disable() {
+	for h in chpwd preexec precmd; do
+		add-zsh-hook -D $h ${h}_update_git_vars
+	done
+	PS_VCS_INFO=''
+}
+git-prompt-enable() {
+	source /home/lexs/.zsh/git-prompt/zshrc.sh
+	ZSH_THEME_GIT_PROMPT_PREFIX="%B%F{yellow}["
+	ZSH_THEME_GIT_PROMPT_SUFFIX="%B%F{yellow}]"
+	PS_VCS_INFO='git_status'
+}
+git-prompt-enable
+
+PS_MAIN="%B$PS_USERHOST $PS_PATH \$(\${PS_VCS_INFO})%B%F{default}>%b "
 
 PATH=~/bin:/usr/sbin:/usr/local/sbin:$PATH
 
@@ -44,7 +60,7 @@ init_project() {
 		return 1
 	}
 	hash -d Δ=${proj}
-	PS_MAIN="%B${projname##*/} \$(_project_pwd) %F{yellow}\$(git_status)%F{default}>%b "
+	PS_MAIN="%B${projname##*/} \$(_project_pwd) \$(\${PS_VCS_INFO})%B%F{default}>%b "
 	{
 		cd ${_proj_root}
 		while [[ "${PWD}" != "${proj}" ]]; do
