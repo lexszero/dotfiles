@@ -1,6 +1,0 @@
-"hg6720
-
-loadplugins '\.(js|penta)$'
-group user
-
-" vim: set ft=pentadactyl:
