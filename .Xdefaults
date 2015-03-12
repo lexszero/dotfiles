@@ -9,7 +9,8 @@ Rxvt*preeditType: OnTheSpot
 Rxvt*inputMethod: uim
 Rxvt*perl-ext: default,matcher,selection,selection-autotransform
 Rxvt*selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vim +$2 \\Q$1\\E\\x0d/
-Rxvt*urlLauncher: firefox-bin
+Rxvt*url-launcher: firefox
+Rxvt*matcher.button: 3
 
 Tkabber*font: DejaVuSans 12
 
