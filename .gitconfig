@@ -1,6 +1,9 @@
 [user]
 	name = Alexey Ignatov
 	email = lexszero@gmail.com
+	signingkey = BB27C674
+[commit]
+	gpgsign = true
 [color]
 	ui = true
 	diff = never
