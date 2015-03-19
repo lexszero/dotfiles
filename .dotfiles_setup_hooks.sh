@@ -6,6 +6,7 @@ cat > $hd/post-commit <<EOF
 sudo cp .zshrc_common /etc/zsh/zshrc_common
 sudo cp .vimrc_common /etc/vim/vimrc.local
 EOF
+chmod +x $hd/post-commit
 for h in post-{checkout,merge}; do
 	ln -s post-commit $hd/$h
 done
