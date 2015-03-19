@@ -1,4 +1,4 @@
-eval `dircolors /etc/DIR_COLORS`
+[ -f "/etc/DIR_COLORS" ] && eval `dircolors /etc/DIR_COLORS`
 cut_term=${TERM#__}
 [[ "$cut_term" == rxvt-unicode-256color && "$cut_term" == "$TERM" ]] && {
 	precmd () {
@@ -29,6 +29,7 @@ autoload -Uz compinit
 compinit
 
 # bash completions
+bashcomp_file=/etc/bash/bashrc.d/bash_completion.sh
 bash_source() {
 	alias shopt=':'
 	alias _expand=_bash_expand
@@ -37,6 +38,10 @@ bash_source() {
 	setopt kshglob noshglob braceexpand
 
 	source "$@"
+}
+[ -f "$bashcomp_file" ] && {
+	bash_source "$bashcomp_file}"
+	autoload bashcompinit
 }
 
 have() {
@@ -48,9 +53,6 @@ vwhich() {
 	local thing=$1
 	vim `which $thing`
 }
-
-bash_source /etc/bash/bashrc.d/bash_completion.sh
-autoload bashcompinit
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -72,7 +74,7 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g C='| wc -l'
 alias -g DN='/dev/null'
-alias -g G='| egrep'
+alias -g G='| egrep --color=auto'
 alias -g H='| head'
 alias -g LL='2>&1 | $PAGER'
 alias -g L='| $PAGER'
