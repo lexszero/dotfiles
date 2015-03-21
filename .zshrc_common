@@ -40,7 +40,7 @@ bash_source() {
 	source "$@"
 }
 [ -f "$bashcomp_file" ] && {
-	bash_source "$bashcomp_file}"
+	bash_source "$bashcomp_file"
 	autoload bashcompinit
 }
 
