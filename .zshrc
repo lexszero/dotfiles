@@ -69,6 +69,10 @@ init_project() {
 		done
 		_project_source_init
 	}
+
+	precmd () {
+		print -Pn "\e]0;[projects/${projname}] %~\a"
+	}
 }
 
 prcd() {

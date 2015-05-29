@@ -5,17 +5,24 @@ if has("cscope")
 	set cst
 	set csre
 	set csverb
-	map <F12> :<C-R>=system("cscope -f .cscope -b -R -k ")<CR><CR>
-	if ! cscope_connection(4, ".cscope")
-		if filereadable(".cscope")
-			cs add .cscope
+	if !exists("g:cscope_file")
+		if exists("g:localvimrc_script_dir")
+			let g:cscope_file = g:localvimrc_script_dir . "/.cscope"
+		else
+			let g:cscope_file = ".cscope"
 		endif
 	endif
-	if ! cscope_connection(4, "cscope.out")
-		if filereadable("cscope.out")
-			cs add cscope.out
+	map <F12> :<C-R>=system("cd `dirname ".g:cscope_file."`; cscope -f ".g:cscope_file." -b -R -k")<CR><CR>
+	if ! cscope_connection(4, g:cscope_file)
+		if filereadable(g:cscope_file)
+			execute "cs add ".g:cscope_file
 		endif
 	endif
+	"if ! cscope_connection(4, "cscope.out")
+	"	if filereadable("cscope.out")
+	"		cs add cscope.out
+	"	endif
+	"endif
 
 
 	" To do the first type of search, hit 'CTRL-\', followed by one of the
