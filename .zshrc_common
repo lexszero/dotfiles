@@ -9,6 +9,13 @@ cut_term=${TERM#__}
 }
 unset cut_term
 
+autoload -U run-help
+autoload run-help-git
+autoload run-help-svn
+autoload run-help-svk
+unalias run-help 2>/dev/null
+alias help=run-help
+
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' completer _complete _ignored _match _correct _approximate _prefix
@@ -62,8 +69,7 @@ unsetopt beep nomatch
 bindkey -v
 
 export ZLSCOLORS="${LS_COLORS}"
-autoload -U colors
-colors
+autoload -U colors && colors
 alias -g ls="ls --color=auto"
 alias -g grep='grep --colour=auto'
 
@@ -81,6 +87,7 @@ alias -g L='| $PAGER'
 alias -g NE='2>/dev/null'
 alias -g NUL='2>&1 > /dev/null'
 alias -g T='| tail'
+alias -g EE='2>&1'
 
 function rcd () {
 	tempfile='/tmp/chosendir'
@@ -94,13 +101,13 @@ function rcd () {
 
 setopt prompt_subst
 
-PS_PATH='%F{blue}%3(c.…%2c.%c)'
+PS_PATH='%{$fg_bold[blue]%}%3(c.…%2c.%c)'
 PS_HOST=`hostname | sed -r 's#(.)[^.]*([^.]).*#\1…\2#'`
 if [ $EUID == 0 ]; then
-	PS_USERHOST="%F{${hostname_color:-red}}$PS_HOST"
+	PS_USERHOST="%{${hostname_color:-$fg[red]}%}$PS_HOST"
 	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{default}>%b "
 else
-	PS_USERHOST="%F{${username_color:-magenta}}${USER:0:1}…%F{default}@%F{${hostname_color:-green}}$PS_HOST"
+	PS_USERHOST="%{${username_color:-$fg[magenta]}%}${USER:0:1}…%{$fg_bold[default]%}@%{${hostname_color:-$fg[green]}%}$PS_HOST"
 	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{default}>%b "
 fi
 PS2="%B%_ %b "

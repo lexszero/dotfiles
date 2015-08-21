@@ -54,7 +54,7 @@ _project_source_init() {
 
 init_project() {
 	projname="${1%%/}"
-	proj="${_proj_root}/${projname}"
+	export proj="${_proj_root}/${projname}"
 	cd "${proj}" || {
 		echo "No such project"
 		return 1
