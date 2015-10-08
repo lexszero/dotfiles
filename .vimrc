@@ -24,4 +24,4 @@ let g:ycm_add_preview_to_completeopt=1
 source ~/.vim/binary.vim
 source ~/.vim/header_guard.vim
 source ~/.vim/ranger.vim
-
+source ~/.vim/backups.vim
