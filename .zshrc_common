@@ -1,6 +1,6 @@
 [ -f "/etc/DIR_COLORS" ] && eval `dircolors /etc/DIR_COLORS`
 cut_term=${TERM#__}
-[[ "$cut_term" == rxvt-unicode-256color && "$cut_term" == "$TERM" ]] && {
+[[ "$cut_term" == rxvt-unicode-256color && "$cut_term" == "$TERM" || -n "$TMUX" ]] && {
 	precmd () {
 		print -Pn "\e]0;%n@%M: %~\a"
 	}
@@ -101,7 +101,7 @@ function rcd () {
 
 setopt prompt_subst
 
-PS_PATH='%{$fg_bold[blue]%}%3(c.…%2c.%c)'
+PS_PATH="%{$fg_bold[blue]%}%3(c.…%2c.%c)"
 PS_HOST=`hostname | sed -r 's#(.)[^.]*([^.]).*#\1…\2#'`
 if [ $EUID == 0 ]; then
 	PS_USERHOST="%{${hostname_color:-$fg[red]}%}$PS_HOST"
