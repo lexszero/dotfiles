@@ -1,0 +1,48 @@
+snippet #!
+abbr    #!/bin/bash
+alias   shebang
+options head
+	#!/bin/${1:bash}
+	${0}
+
+
+snippet if
+	if [[ ${1:#:condition} ]]; then
+		${0:TARGET}
+	fi
+
+
+snippet elif
+	elif [[ ${1:#:condition} ]]; then
+		${0:TARGET}
+
+
+snippet function
+alias func
+	${1:#:name}() {
+		${0:TARGET}
+	}
+
+snippet     match-regexp
+abbr        =~
+options     head
+	if [[ $${1:string} =~ ${2:^regexp.*} ]]; then
+		${0}
+	fi
+
+snippet     assign
+abbr        var-assign
+options     head
+	${1:name}="${2:something}"
+
+snippet     case
+options     head
+	case "${1:{$name\}}" in
+		${2:pattern*})
+			${0}
+			;;
+		*)
+			${3:echo "$$1 Didn't match anything"}
+	esac
+
+# vim: set noexpandtab :

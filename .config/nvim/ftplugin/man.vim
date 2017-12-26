@@ -1,0 +1,2 @@
+nmap . g/
+set notitle
