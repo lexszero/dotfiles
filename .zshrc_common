@@ -1,0 +1,187 @@
+[ -f "/etc/DIR_COLORS" ] && eval `dircolors /etc/DIR_COLORS`
+cut_term=${TERM#__}
+[[ "$cut_term" == rxvt-unicode-256color && "$cut_term" == "$TERM" || -n "$TMUX" ]] && {
+	precmd () {
+		print -Pn "\e]0;%n@%M: %~\a"
+	}
+} || {
+	export TERM=$cut_term
+}
+unset cut_term
+
+autoload -U run-help
+autoload run-help-git
+autoload run-help-ip
+autoload run-help-openssl
+autoload run-help-sudo
+autoload run-help-svn
+unalias run-help 2>/dev/null
+alias help=run-help
+#help() {
+#	local PAGER=$MANPAGER
+#	run-help
+#}
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' completer _complete _ignored _match _correct _approximate _prefix
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' format '%d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' '' '' '+'
+zstyle ':completion:*' max-errors 1
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' original false
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+#zstyle ':completion:*' use-compctl true
+
+autoload -Uz compinit
+compinit
+
+# bash completions
+bashcomp_file=/etc/bash/bashrc.d/bash_completion.sh
+bash_source() {
+	alias shopt=':'
+	alias _expand=_bash_expand
+	alias _complete=_bash_comp
+	emulate -L sh
+	setopt kshglob noshglob braceexpand
+
+	source "$@"
+}
+[[ -f "$bashcomp_file" ]] && {
+	bash_source "$bashcomp_file"
+	autoload bashcompinit
+}
+
+have() {
+  unset have
+  (( ${+commands[$1]} )) && have=yes
+}
+
+vwhich() {
+	local thing=$1
+	vim `which $thing`
+}
+
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt append_history extended_history hist_expire_dups_first hist_ignore_dups hist_ignore_space hist_find_no_dups hist_verify inc_append_history
+setopt autocd extendedglob notify
+unsetopt beep nomatch
+bindkey -v
+
+export ZLSCOLORS="${LS_COLORS}"
+autoload -U colors && colors
+
+alias -g ls="ls --color=auto"
+alias -g grep='grep --colour=auto'
+
+[[ -n "$TERMINOLOGY" ]] && {
+	alias -g l=tyls
+}
+
+#lias -g l='ls'
+alias -g ll='ls -la'
+alias -g tf='tail -F '
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g C='| wc -l'
+alias -g DN='/dev/null'
+alias -g G='| egrep --color=auto'
+alias -g Gi='| egrep --color=auto -i'
+alias -g Gv='| egrep --color=auto -v'
+alias -g Giv='| egrep --color=auto -iv'
+alias -g H='| head'
+alias -g LL='2>&1 | $PAGER'
+alias -g L='| $PAGER'
+alias -g NE='2>/dev/null'
+alias -g NUL='> /dev/null 2>&1'
+alias -g T='| tail'
+alias -g EE='2>&1'
+
+function rcd () {
+	tempfile='/tmp/chosendir'
+	ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+	test -f "$tempfile" &&
+	if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+		cd -- "$(cat "$tempfile")"
+	fi
+	rm -f -- "$tempfile"
+}
+
+setopt prompt_subst
+
+PS_PATH="%{$fg_bold[blue]%}%3(c.…%2c.%c)"
+PS_HOST=`hostname | sed -r 's#(.)[^.]*([^.]).*#\1…\2#'`
+if [ $EUID == 0 ]; then
+	PS_USERHOST="%{${hostname_color:-$fg[red]}%}$PS_HOST"
+	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{default}>%b "
+else
+	PS_USERHOST="%{${username_color:-$fg[magenta]}%}${USER:0:1}…%{$fg_bold[default]%}@%{${hostname_color:-$fg[green]}%}$PS_HOST"
+	PS_MAIN="%B$PS_USERHOST $PS_PATH %F{default}>%b "
+fi
+PS2="%B%_ %b "
+
+PS_VIMODE="[I]"
+function set-ps1 {
+	PS1="${PS_VIMODE}${PS_MAIN}"
+}
+set-ps1
+
+function zle-line-init zle-keymap-select {
+	case $KEYMAP in
+	vicmd)
+		PS_VIMODE="[%F{yellow}N%F{default}]"
+		;;
+	main|viins)
+		PS_VIMODE="[%F{green}I%F{default}]"
+		;;
+	*)
+		PS_VIMODE="[ ]"
+	esac
+	set-ps1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+autoload -Uz replace-argument
+function vi-change-word {
+	local n=$NUMERIC
+	unset NUMERIC
+	zle beginning-of-line-hist
+	[[ -n "$n" && "$n" -gt 0 ]] && zle vi-forward-blank-word -n "$n"
+	zle delete-word
+	zle vi-insert
+}
+zle -N vi-change-word
+bindkey -a \\C-f vi-change-word
+bindkey -v \\C-f vi-change-word
+
+bindkey \\C-g clear-screen
+bindkey -a \\C-g clear-screen
+
+bindkey -v \\C-r history-incremental-pattern-search-backward
+bindkey -v \\C-p history-beginning-search-backward
+bindkey -v \\C-n history-beginning-search-forward
+bindkey -v \\C-h backward-word
+bindkey -v \\C-l forward-word
+
+function shell-wtf {
+	help ${BUFFER%% *}
+}
+zle -N shell-wtf
+bindkey -v \\C-H shell-wtf
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line

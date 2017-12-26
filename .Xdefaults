@@ -1,0 +1,36 @@
+Rxvt*background: black
+Rxvt*foreground: white
+Rxvt*font: xft:Terminus:size=12
+Rxvt*scrollWithBuffer: False
+Rxvt*scrollTtyOutput: False
+Rxvt*scrollTtyKeypress: True
+Rxvt*scrollBar: false
+Rxvt*preeditType: OnTheSpot
+Rxvt*inputMethod: uim
+Rxvt*perl-ext: default,matcher,selection,selection-autotransform
+Rxvt*selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vim +$2 \\Q$1\\E\\x0d/
+Rxvt*url-launcher: firefox
+Rxvt*matcher.button: 3
+Rxvt*urgentOnBell: true
+
+Tkabber*font: DejaVuSans 12
+
+Rxvt*color0:			black
+Rxvt*color1:			#B00000
+Rxvt*color2:			green4
+Rxvt*color3:			yellow3
+Rxvt*color4:			blue3
+Rxvt*color5:			#A000A0
+Rxvt*color6:			#009999
+/* Rxvt*color7:			#D0B099 */
+Rxvt*color8:			grey90
+Rxvt*color9:			#FF3030
+Rxvt*color10:			#70FF70
+Rxvt*color11:			#F0F080
+Rxvt*color12:			#B0B0FF
+Rxvt*color13:			#EFA0BF
+Rxvt*color14:			#A0FFFF
+Rxvt*color15:			white
+
+XTerm*background: black
+XTerm*foreground: white
