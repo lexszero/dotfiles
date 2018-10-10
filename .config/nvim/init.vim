@@ -3,7 +3,7 @@ filetype off
 
 call plug#begin()
 
-Plug 'godlygeek/csapprox'		" color scheme approximation
+"Plug 'godlygeek/csapprox'		" color scheme approximation
 Plug 'Shougo/vimproc'
 Plug 'jamessan/vim-gnupg'
 "Plug 'vim-ctrlspace/vim-ctrlspace'
@@ -46,8 +46,13 @@ Plug 'zchee/deoplete-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim'
 Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
+" filetype=processin
+Plug 'sophacles/vim-processing', { 'for': 'processing' }
+"Plug 'Yggdroot/indentLine'
+Plug 'nathanaelkane/vim-indent-guides'
+
 " filetype=c
-Plug 'taglist.vim'
+"Plug 'taglist.vim'
 "Plug 'zchee/deoplete-clang', { 'for': 'c' }
 Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
 Plug 'scrooloose/nerdcommenter', { 'for': 'c' }
@@ -66,11 +71,17 @@ filetype plugin indent on
 
 set visualbell
 set titlelen=200
-set t_Co=256
-let g:colorschemedegrade_ignore=""
+"set t_Co=256
+"let g:colorschemedegrade_ignore=""
+set termguicolors
 colorscheme mycolors
 
-let g:airline_powerline_fonts=0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  guibg=#101010
+hi IndentGuidesEven guibg=#202020
+
+let g:airline_powerline_fonts=1
 
 if executable("ag")
 	let g:ctrlp_user_command = 'ag -l --nocolor -g ""'

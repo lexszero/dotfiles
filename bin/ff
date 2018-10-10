@@ -1,0 +1,6 @@
+#!/bin/bash
+instance=${1:-default}
+
+exec firejail --profile=/etc/firejail/firefox.profile --debug apulse firefox -new-instance -ProfileManager
+#exec firejail --profile=~/.config/firejail/firefox-my.profile --debug firefox -new-instance -ProfileManager
+#exec firejail --profile=~/.config/firejail/palemoon.profile --debug palemoon-bin -new-instance -ProfileManager

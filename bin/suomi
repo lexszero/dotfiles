@@ -1,0 +1,7 @@
+#!/bin/bash
+q="$*"
+[[ "$(wc -w <<<"$q")" == 1 ]] && {
+	~/develop/w3crapcli/suomienglantisanakirja.fi/suomi "$q"
+} || {
+	gtr fi en "$q"
+}

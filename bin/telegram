@@ -1,0 +1,5 @@
+#!/bin/bash
+WORKDIR=/media/mapper_ssd-crypto/telegram
+firejail --debug \
+	--noblacklist="$WORKDIR" \
+	telegram-desktop -workdir="$WORKDIR"

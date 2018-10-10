@@ -27,7 +27,7 @@ font pango:Terminus 12px
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Shift+Return exec /usr/bin/urxvtc
+bindsym $mod+Shift+Return exec terminal
 
 # kill focused window
 bindsym $mod+Shift+C kill
@@ -36,7 +36,7 @@ bindsym $mod+Shift+C kill
 bindsym $mod+F1 exec /usr/bin/dmenu_run
 
 # start terminal with ranger
-bindsym $mod+F2 exec urxvtc -e ranger
+bindsym $mod+F2 exec terminal -e ranger
 
 bindsym $mod+F3 exec open_clipboard
 

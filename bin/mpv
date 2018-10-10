@@ -1,0 +1,5 @@
+#!/bin/bash
+MPV_LOG=~/.local/mpv.log
+#MPV_ARGS="-vo x11"
+echo "`date -Iseconds`: $@" >> $MPV_LOG
+exec /usr/bin/mpv $MPV_ARGS "$@"

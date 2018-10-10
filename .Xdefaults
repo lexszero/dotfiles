@@ -1,6 +1,6 @@
 Rxvt*background: black
 Rxvt*foreground: white
-Rxvt*font: xft:Terminus:size=12
+Rxvt*font: xft:Terminus:pixelsize=12
 Rxvt*scrollWithBuffer: False
 Rxvt*scrollTtyOutput: False
 Rxvt*scrollTtyKeypress: True
@@ -12,6 +12,9 @@ Rxvt*selection-autotransform.0: s/^([^:[:space:]]+):(\\d+):?$/vim +$2 \\Q$1\\E\\
 Rxvt*url-launcher: firefox
 Rxvt*matcher.button: 3
 Rxvt*urgentOnBell: true
+URxvt.keysym.Mod4-0x30: command:\033]710;xft:Terminus:pixelsize=10\007\033]711;xft:Terminus:pixelsize=10:style=bold\007
+URxvt.keysym.Mod4-0x2d: command:\033]710;xft:Terminus:pixelsize=13\007\033]711;xft:Terminus:pixelsize=13:style=bold\007
+URxvt.keysym.Mod4-0x3d: command:\033]710;xft:Terminus:pixelsize=16\007\033]711;xft:Terminus:pixelsize=16:style=bold\007
 
 Tkabber*font: DejaVuSans 12
 
@@ -19,7 +22,7 @@ Rxvt*color0:			black
 Rxvt*color1:			#B00000
 Rxvt*color2:			green4
 Rxvt*color3:			yellow3
-Rxvt*color4:			blue3
+Rxvt*color4:			#4040FF
 Rxvt*color5:			#A000A0
 Rxvt*color6:			#009999
 /* Rxvt*color7:			#D0B099 */
@@ -34,3 +37,40 @@ Rxvt*color15:			white
 
 XTerm*background: black
 XTerm*foreground: white
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

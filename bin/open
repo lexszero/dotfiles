@@ -1,0 +1,71 @@
+#!/bin/bash -x
+BROWSER=${BROWSER:-firefox}
+MAX_DL_SIZE=$((20*1024*1024))
+
+say() {
+	[[ -t 0 ]] && echo "$@" || notify-lexs "Open" "$@"
+}
+
+debug() { :; }
+[[ -n "$DEBUG" ]] && {
+	debug() {
+		>&2 echo "debug: $@"
+	}
+}
+
+open_with() {
+	say "Opening with $1"
+	"$@"
+}
+
+open_file() {
+	rifle -f F "$1"
+}
+
+open_url_download() {
+	say "Downloading"
+	local tmpfile=`mktemp`
+	wget "$1" -O "$tmpfile" -q && open_with open_file "$tmpfile"
+	rm "$tmpfile"
+}
+
+open_url() {
+	local URL="$1"
+	local hdr=$(curl -L -I -m 10 "$URL" 2>/dev/null)
+	local hdr_type=$(http_header 'Content-Type' <<< "$hdr")
+	local hdr_len=$(http_header 'Content-Length' <<< "$hdr")
+	
+	debug "mime: $hdr_type, length: $hdr_len"
+	case "$hdr_type" in
+		image/*|application/pdf)
+			[[ "$hdr_len" -le "$MAX_DL_SIZE" ]] && open_url_download "$URL"
+			;;
+		audio/*|video/*)
+			open_with mpv "$URL"
+			;;
+		*)
+			youtube-dl-check "$URL" >/dev/null && open_with mpv "$URL" ||
+			$BROWSER "$URL"
+			;;
+	esac
+}
+
+http_header() {
+	sed -rn "s/^$1: ([a-zA-Z0-9/]*).*$/\1/p"
+}
+
+for URL; do
+	[[ -f "$URL" ]] && {
+		open_with open_file "$URL"
+		continue
+	}
+
+	case "$URL" in
+		http://*|https://*)
+			open_url "$URL"
+			;;
+		google://*)
+			open_url "$(google "$(urldecode <<< "${URL#google://}")" | head -n1)"
+			;;
+	esac
+done

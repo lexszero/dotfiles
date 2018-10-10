@@ -8,7 +8,6 @@ setlocal wildoptions=tagfile
 let g:ctrlp_extensions = ['mixed', 'buffertag', 'quickfix', 'dir',
                            \ 'undo', 'line', 'changes', 'bookmarkdir']
 
-
 "au BufWinLeave * mkview
 "au BufWinLeave * silent loadview
 
@@ -16,17 +15,17 @@ set list
 set listchars=tab:·\ ,trail:·
 
 let g:deoplete#disable_auto_complete = 1
-call deoplete#custom#set('_', 'converters', [
+call deoplete#custom#source('_', 'converters', [
 			\ 'converter_remove_overlap',
 			\ 'converter_truncate_abbr',
 			\ 'converter_truncate_menu',
 			\ 'converter_auto_delimiter'
 			\ ])
 
-call deoplete#custom#set('neosnippet', 'rank', 1000)
-call deoplete#custom#set('around', 'rank', 900)
-call deoplete#custom#set('clang_complete', 'rank', 800)
-call deoplete#custom#set('buffer', 'rank', 10)
+call deoplete#custom#source('neosnippet', 'rank', 1000)
+call deoplete#custom#source('around', 'rank', 900)
+call deoplete#custom#source('clang_complete', 'rank', 800)
+call deoplete#custom#source('buffer', 'rank', 10)
 
 call deoplete#enable()
 
