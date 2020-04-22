@@ -15,6 +15,7 @@ let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Auto_Highlight_Tag = 1
 let g:SrcExpl_isUpdateTags = 0
 
+let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-9/lib/libclang.so.1"
 nmap <leader>t :TlistToggle<CR>
 
 " nice but slow
@@ -26,7 +27,7 @@ set completeopt-=preview
 
 "set complete=
 
-source ~/.vim/cscope.vim
+"source ~/.vim/cscope.vim
 
 "if filereadable(".cctree")
 "	CCTreeLoadXRefDB .cctree

@@ -10,7 +10,7 @@ Plug 'jamessan/vim-gnupg'
 Plug 'bkad/CamelCaseMotion'
 Plug 'ton/vim-bufsurf'
 Plug 'tpope/vim-scriptease'
-Plug 'extended-help'
+Plug 'vim-scripts/extended-help'
 Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
@@ -21,15 +21,13 @@ Plug 'embear/vim-localvimrc'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-unimpaired'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Konfekt/FastFold'
 
 " filetype plugins
 " common stuff
 Plug 'vim-utils/vim-man'
-Plug 'godlygeek/tabular', { 'for': 'markdown' }			" ascii tables for markdown
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'ledger/vim-ledger', { 'for': 'ledger' }
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -37,24 +35,37 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
 "Plug 'hsitz/VimOrganizer'
 Plug 'tpope/vim-speeddating', { 'for': 'org' }
+Plug 'kergoth/vim-bitbake'
+
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'godlygeek/tabular', { 'for': 'markdown' }			" ascii tables for markdown
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+
+" PlantUML
+Plug 'aklt/plantuml-syntax'
+"Plug 'scrooloose/vim-slumlord'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
 
 " filetype=go
 Plug 'vim-jp/vim-go-extra', { 'for': 'go' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'for': 'go' }
+"Plug 'zchee/deoplete-go', { 'for': 'go' }
 
 Plug 'rust-lang/rust.vim'
-Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
+"Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
 " filetype=processin
 Plug 'sophacles/vim-processing', { 'for': 'processing' }
 "Plug 'Yggdroot/indentLine'
 Plug 'nathanaelkane/vim-indent-guides'
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " filetype=c
 "Plug 'taglist.vim'
 "Plug 'zchee/deoplete-clang', { 'for': 'c' }
-Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
+"Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
 Plug 'scrooloose/nerdcommenter', { 'for': 'c' }
 "Plug 'vim-scripts/Trinity'
 "Plug 'scrooloose/nerdtree'
