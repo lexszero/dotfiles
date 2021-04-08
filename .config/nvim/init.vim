@@ -1,29 +1,47 @@
 set nocompatible
 filetype off
 
+let g:ale_disable_lsp = 1
+
 call plug#begin()
 
 "Plug 'godlygeek/csapprox'		" color scheme approximation
 Plug 'Shougo/vimproc'
 Plug 'jamessan/vim-gnupg'
-"Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'bkad/CamelCaseMotion'
 Plug 'ton/vim-bufsurf'
 Plug 'tpope/vim-scriptease'
 Plug 'vim-scripts/extended-help'
 Plug 'rking/ag.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'gelguy/wilder.nvim'
 Plug 'scrooloose/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'embear/vim-localvimrc'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-unimpaired'
 
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Konfekt/FastFold'
+
+"💚 coc 💚 
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Plug 'junegunn/fzf.vim' " needed for previews
+Plug 'antoinemadec/coc-fzf'
+Plug 'dense-analysis/ale'
+Plug 'bufbuild/vim-buf'
+
+" filetype=c
+Plug 'scrooloose/nerdcommenter', { 'for': 'c' }
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/neoinclude.vim'
+
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+
 
 " filetype plugins
 " common stuff
@@ -33,7 +51,6 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
-"Plug 'hsitz/VimOrganizer'
 Plug 'tpope/vim-speeddating', { 'for': 'org' }
 Plug 'kergoth/vim-bitbake'
 
@@ -56,26 +73,14 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim'
 "Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
+"Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+
 " filetype=processin
 Plug 'sophacles/vim-processing', { 'for': 'processing' }
 "Plug 'Yggdroot/indentLine'
 Plug 'nathanaelkane/vim-indent-guides'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" filetype=c
-"Plug 'taglist.vim'
-"Plug 'zchee/deoplete-clang', { 'for': 'c' }
-"Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
-Plug 'scrooloose/nerdcommenter', { 'for': 'c' }
-"Plug 'vim-scripts/Trinity'
-"Plug 'scrooloose/nerdtree'
-"Plug 'vim-scripts/taglist.vim'
-"Plug 'wesleyche/SrcExpl'
-"Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/neoinclude.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -93,20 +98,51 @@ hi IndentGuidesOdd  guibg=#101010
 hi IndentGuidesEven guibg=#202020
 
 let g:airline_powerline_fonts=1
+let g:airline#extensions#coc#enable = 0
+let g:airline#extensions#ale#warning_symbol = '☹ '
+let g:airline#extensions#ale#error_symbol = '⚠ '
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 if executable("ag")
 	let g:ctrlp_user_command = 'ag -l --nocolor -g ""'
 endif
 
-let g:ctrlp_extensions = [
-	\ 'mixed', 'buffertag', 'tag', 'quickfix', 'dir', 'undo',
-	\ 'line', 'changes', 'bookmarkdir', 'autoignore']
-let g:ctrlp_mruf_relative = 1
-let g:ctrlp_cmd	= 'CtrlPMixed'
+command! -bang -nargs=? -complete=dir Files
+	\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
+nmap <C-p> :Files<CR>
+nmap <C-b> :Buffers<CR>
+nmap <C-h> :History<CR>
+nmap <C-m> :Maps<CR>
+"nmap <C-colon> :Commands
+nmap <C-?> :Helptags<CR>
 
 " For bash syntax
 let g:is_bash = 1
 let g:sh_fold_enabled = 1
+
+call wilder#enable_cmdline_enter()
+set wildcharm=<Tab>
+cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+
+" only / and ? are enabled by default
+call wilder#set_option('modes', ['/', '?', ':'])
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#cmdline_pipeline({
+      \       'language': 'python',
+      \       'fuzzy': 1,
+      \     }),
+      \     wilder#python_search_pipeline({
+      \       'pattern': wilder#python_fuzzy_pattern(),
+      \       'sorter': wilder#python_difflib_sorter(),
+      \       'engine': 're',
+      \     }),
+      \   ),
+      \ ])
+call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ }))
 
 "
 nmap <leader>h :BufSurfBack<CR>
@@ -135,24 +171,18 @@ set mouse=a
 set showcmd
 set noshowmode
 set hidden
-set wildmenu
-set wildmode=longest,list,full
 set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
 set splitright
-"setlocal list
-"setlocal listchars=tab:·\ ,trail:·
 " no more finger-bending to reach Esc!
 inoremap jj <ESC>
 "noremap j h
 "noremap k j
 "noremap l k
 "noremap ; l
-
-"nnoremap <silent> <Help> :help <C-R>=expand("<cword>")<CR><CR>
 
 " tabulation prefs
 set tabstop=4
@@ -187,10 +217,6 @@ nmap <F5> :e<CR>
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 map <C-A> <C-W>
-nmap <C-H> <C-W>h
-nmap <C-J> <C-W>j
-nmap <C-K> <C-W>k
-nmap <C-L> <C-W>l
 
 nmap <PageUp> <C-U><C-U>
 imap <PageUp> <C-O><C-U><C-O><C-U>
@@ -216,16 +242,10 @@ map <M-7> 7gt
 map <M-8> 8gt
 map <M-9> 9gt
 let g:localvimrc_sandbox = 0
-let g:localvimrc_whitelist = '/home/lexs/projects/.*'
+let g:localvimrc_whitelist = [
+	\ '/home/lexs/projects/.*',
+	\ '/home/lexs/work/.*'
+\]
 "let g:localvimrc_debug = 3
 
 let g:fastfold_savehook = 1
-
-" source various stuff
-"source ~/.config/nvim/ycm.vim
-"source ~/.config/nvim/binary.vim
-"source ~/.config/nvim/header_guard.vim
-"source ~/.config/nvim/ranger.vim
-"source ~/.config/nvim/backups.vim
-"source ~/.vim/neocomplete.vim
-"source ~/.config/nvim/deoplete.vim

@@ -5,12 +5,6 @@ setlocal relativenumber
 setlocal undofile
 setlocal wildoptions=tagfile
 
-let g:ctrlp_extensions = ['mixed', 'buffertag', 'quickfix', 'dir',
-                           \ 'undo', 'line', 'changes', 'bookmarkdir']
-
-"au BufWinLeave * mkview
-"au BufWinLeave * silent loadview
-
 set list
 set listchars=tab:·\ ,trail:·
 
@@ -118,62 +112,86 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
+nnoremap <silent> <space><space>  :<C-u>CocFzfList<cr>
 " Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>a  :<C-u>CocFzfList diagnostics<cr>
+nnoremap <silent> <space>b  :<C-u>CocFzfList diagnostics --current-buf<cr>
 " Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>c  :<C-u>CocFzfList commands<cr>
 " Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocFzfList outline<cr>
 " Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <space>s  :<C-u>CocFzfList -I symbols<cr>
 " Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
 
-"let g:deoplete#disable_auto_complete = 1
-"call deoplete#custom#source('_', 'converters', [
-"			\ 'converter_remove_overlap',
-"			\ 'converter_truncate_abbr',
-"			\ 'converter_truncate_menu',
-"			\ 'converter_auto_delimiter'
-"			\ ])
-"
-"call deoplete#custom#source('neosnippet', 'rank', 1000)
-"call deoplete#custom#source('around', 'rank', 900)
-"call deoplete#custom#source('clang_complete', 'rank', 800)
-"call deoplete#custom#source('buffer', 'rank', 10)
-"
-"call deoplete#enable()
-
-"function! s:check_back_space() abort
-"		let col = col('.') - 1
-"		return !col || getline('.')[col - 1]  =~ '\s'
-"endfunction
-"
-"function! s:neosnippet_complete()
-"	if pumvisible()
-"		return "\<c-n>"
-"	else
-"		if neosnippet#expandable_or_jumpable() 
-"			return "\<Plug>(neosnippet_expand_or_jump)"
-"		endif
-"		let col = col('.') - 1
-"		if !col || getline('.')[col - 1] =~ '\s'
-"			return "\<tab>"
-"		endif
-"		return deoplete#manual_complete()
-"	endif
-"endfunction
-"
-"imap <expr><TAB> <SID>neosnippet_complete()
-"smap <expr><TAB> <SID>neosnippet_complete()
-"let g:neosnippet#enable_completed_snippet = 1
-"let g:neosnippet#snippets_directory = "$HOME/.config/nvim/snippets"
+" Show explorer
+nnoremap <silent> <space>e  :<C-u>CocCommand explorer<cr>
+" navigate chunks of current buffer
+nmap [G <Plug>(coc-git-prevchunk)
+nmap ]G <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap [c <Plug>(coc-git-prevconflict)
+nmap ]c <Plug>(coc-git-nextconflict)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
 
 call echodoc#enable()
+let g:coc_explorer_global_presets = {
+\   'workspace': {
+\     'root-uri': 'workspace.rootPath',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'root-uri': 'workspace.rootPath',
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'root-uri': 'workspace.rootPath',
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'root-uri': 'workspace.rootPath',
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   },
+\   'buffer': {
+\     'sources': [{'name': 'buffer', 'expand': v:true}]
+\   },
+\ }
 
+" Use preset argument to open it
+nnoremap <space>ew :CocCommand explorer --preset workspace<CR>
+nnoremap <space>ef :CocCommand explorer --preset floatingRightside<CR>
+nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
+
+" List all presets
+nnoremap <space>el :CocList explPresets<CR>

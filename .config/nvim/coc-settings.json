@@ -1,2 +1,17 @@
 {
+  "suggest.enablePreselect": true,
+  "suggest.enablePreview": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.displayByAle": true,
+  "codeLens.enable": true,
+  "git.enableGutters": true,
+  "git.showCommitInFloating": true,
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "diagnostic.errorSign": "✘",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": ""
 }

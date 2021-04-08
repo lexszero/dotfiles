@@ -16,7 +16,9 @@ let Tlist_Auto_Highlight_Tag = 1
 let g:SrcExpl_isUpdateTags = 0
 
 let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-9/lib/libclang.so.1"
-nmap <leader>t :TlistToggle<CR>
+
+nmap <leader>x :CocCommand clangd.switchSourceHeader<CR>
+
 
 " nice but slow
 " TlistAddFilesRecursive ./
