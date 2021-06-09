@@ -1,4 +1,4 @@
-Guifont Terminus:h15
+Guifont Terminus \(TTF\):h16
 set title
 "set guifont=keyrus
 

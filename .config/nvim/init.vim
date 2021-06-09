@@ -27,11 +27,29 @@ Plug 'Konfekt/FastFold'
 
 "💚 coc 💚 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+let g:coc_global_extensions = [
+			\ 'coc-clangd',
+			\ 'coc-explorer',
+			\ 'coc-git',
+			\ 'coc-json',
+			\ 'coc-neosnippet',
+			\ 'coc-protobuf',
+			\ 'coc-pyright',
+			\ 'coc-sh',
+			\ 'coc-snippets',
+			\ 'coc-tsdetect',
+			\ 'coc-tsserver',
+			\]
+
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
 Plug 'junegunn/fzf.vim' " needed for previews
 Plug 'antoinemadec/coc-fzf'
+Plug 'ryanoasis/vim-devicons'
+Plug 'mattn/vim-ale-icons'
 Plug 'dense-analysis/ale'
 Plug 'bufbuild/vim-buf'
+Plug 'puremourning/vimspector'
+Plug 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update() } }
 
 " filetype=c
 Plug 'scrooloose/nerdcommenter', { 'for': 'c' }
@@ -97,52 +115,32 @@ let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  guibg=#101010
 hi IndentGuidesEven guibg=#202020
 
-let g:airline_powerline_fonts=1
-let g:airline#extensions#coc#enable = 0
-let g:airline#extensions#ale#warning_symbol = '☹ '
-let g:airline#extensions#ale#error_symbol = '⚠ '
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-
-if executable("ag")
-	let g:ctrlp_user_command = 'ag -l --nocolor -g ""'
-endif
-
 command! -bang -nargs=? -complete=dir Files
 	\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
 nmap <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 nmap <C-h> :History<CR>
-nmap <C-m> :Maps<CR>
-"nmap <C-colon> :Commands
-nmap <C-?> :Helptags<CR>
+nmap <leader>m :Maps<CR>
+nmap <C-colon> :Commands
+nmap <C-/> :Helptags<CR>
+
+" Mappings using CoCList:
+nnoremap <silent> <space><space>  :<C-u>CocFzfList<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocFzfList commands<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
+
+" Show explorer
+nnoremap <silent> <space>e  :<C-u>CocCommand explorer<cr>
 
 " For bash syntax
 let g:is_bash = 1
 let g:sh_fold_enabled = 1
-
-call wilder#enable_cmdline_enter()
-set wildcharm=<Tab>
-cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
-cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
-
-" only / and ? are enabled by default
-call wilder#set_option('modes', ['/', '?', ':'])
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     wilder#cmdline_pipeline({
-      \       'language': 'python',
-      \       'fuzzy': 1,
-      \     }),
-      \     wilder#python_search_pipeline({
-      \       'pattern': wilder#python_fuzzy_pattern(),
-      \       'sorter': wilder#python_difflib_sorter(),
-      \       'engine': 're',
-      \     }),
-      \   ),
-      \ ])
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ }))
 
 "
 nmap <leader>h :BufSurfBack<CR>
@@ -249,3 +247,6 @@ let g:localvimrc_whitelist = [
 "let g:localvimrc_debug = 3
 
 let g:fastfold_savehook = 1
+let g:mkdp_open_to_the_world = 1
+
+runtime ui.vim

@@ -112,7 +112,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
-nnoremap <silent> <space><space>  :<C-u>CocFzfList<cr>
 " Show all diagnostics.
 nnoremap <silent> <space>a  :<C-u>CocFzfList diagnostics<cr>
 nnoremap <silent> <space>b  :<C-u>CocFzfList diagnostics --current-buf<cr>
@@ -121,16 +120,14 @@ nnoremap <silent> <space>c  :<C-u>CocFzfList commands<cr>
 " Find symbol of current document.
 nnoremap <silent> <space>o  :<C-u>CocFzfList outline<cr>
 " Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocFzfList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocFzfListResume<CR>
+nnoremap <silent> <space>s  :<C-u>CocFzfList symbols<cr>
+" Search location.
+nnoremap <silent> <space>l  :<C-u>CocFzfList location<cr>
 
-" Show explorer
-nnoremap <silent> <space>e  :<C-u>CocCommand explorer<cr>
+" Show git diff
+nnoremap <leader>gd  :<C-u>Gdiff<cr>
+nnoremap <leader>gs  :<C-u>CocCommand git.chunkStage<cr>
+nnoremap <leader>gu  :<C-u>CocCommand git.chunkUndo<cr>
 " navigate chunks of current buffer
 nmap [G <Plug>(coc-git-prevchunk)
 nmap ]G <Plug>(coc-git-nextchunk)
@@ -146,52 +143,47 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 
 call echodoc#enable()
-let g:coc_explorer_global_presets = {
-\   'workspace': {
-\     'root-uri': 'workspace.rootPath',
-\   },
-\   'tab': {
-\     'position': 'tab',
-\     'quit-on-open': v:true,
-\   },
-\   'floating': {
-\     'root-uri': 'workspace.rootPath',
-\     'position': 'floating',
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingTop': {
-\     'position': 'floating',
-\     'floating-position': 'center-top',
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingLeftside': {
-\     'root-uri': 'workspace.rootPath',
-\     'position': 'floating',
-\     'floating-position': 'left-center',
-\     'floating-width': 50,
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingRightside': {
-\     'root-uri': 'workspace.rootPath',
-\     'position': 'floating',
-\     'floating-position': 'right-center',
-\     'floating-width': 50,
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'simplify': {
-\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-\   },
-\   'buffer': {
-\     'sources': [{'name': 'buffer', 'expand': v:true}]
-\   },
-\ }
 
-" Use preset argument to open it
-nnoremap <space>ew :CocCommand explorer --preset workspace<CR>
-nnoremap <space>ef :CocCommand explorer --preset floatingRightside<CR>
-nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
+"let g:vimspector_install_gadgets = []
+let g:vimspectorpy#launcher = "rxvt"
+let g:vimspector_sidebar_width = 50
+let g:vimspector_botombar_height = 3
+let g:vimspectorpy_venv = getenv('VIRTUAL_ENV')
+let g:vimspector_sign_priority = {
+			\    'vimspectorBP':         200,
+			\    'vimspectorBPCond':     200,
+			\    'vimspectorBPDisabled': 200,
+			\    'vimspectorPC':         999,
+			\ }
+sign define vimspectorBP         text=\ ● texthl=WarningMsg
+sign define vimspectorBPCond     text=\ ◆ texthl=WarningMsg
+sign define vimspectorBPDisabled text=\ ● texthl=LineNr
+sign define vimspectorPC         text=\ ▶ texthl=MatchParen linehl=CursorLine
+sign define vimspectorPCBP       text=●▶  texthl=MatchParen linehl=CursorLine
 
-" List all presets
-nnoremap <space>el :CocList explPresets<CR>
+let g:ale_sign_error = "✘"
+let g:ale_sign_warning = "❗"
+let g:ale_sign_info = ""
+let g:ale_sign_style_error = "☹"
+let g:ale_sign_style_warning = "☹"
+"let g:ale_floating_preview = 1
+  "diagnostic.hintSign": "💡"
